@@ -1,12 +1,12 @@
-# Wide Residual Networks — CIFAR-10 Replication
+# Wide Residual Networks: CIFAR-10 Replication
 
 ## 1. Introduction
 
-This repository is a coursework-style **re-implementation and replication study** built around *[Wide Residual Networks](http://arxiv.org/abs/1605.07146)* (Zagoruyko & Komodakis, BMVC 2016). The authors show that making residual blocks **wider** (rather than arbitrarily deeper) yields better accuracy–compute trade-offs; we train their WRN family on **CIFAR-10** in PyTorch and compare test error to reported numbers.
+This repository is a coursework-style **re-implementation and replication study** built around *[Wide Residual Networks](http://arxiv.org/abs/1605.07146)* (Zagoruyko & Komodakis, BMVC 2016). The authors show that making residual blocks **wider** (rather than arbitrarily deeper) yields better accuracy-compute trade-offs; we train their WRN family on **CIFAR-10** in PyTorch and compare test error to reported numbers.
 
 ## 2. Chosen Result
 
-We target **CIFAR-10 test-error numbers** on four WRNs that show how widening interacts with depth. **References:** *[Table 5](http://arxiv.org/abs/1605.07146)* (flip/translation + mean/std)—**WRN-28-10 = 4.00%**; *[Table 4](http://arxiv.org/abs/1605.07146)* (width sweep on WRN-40-*k*, ZCA preprocessing in the paper)—**WRN-40-1 / 40-2 / 40-4 = 6.85 / 5.33 / 4.97%**. Our trainer uses Table-5-*style* mean/std preprocessing, so comparisons to the WRN-40-*k* figures are directional (full apples-to-apples would replicate each table’s preprocessing).
+We target **CIFAR-10 test-error numbers** on four WRNs that show how widening interacts with depth. **References:** *[Table 5](http://arxiv.org/abs/1605.07146)* (flip/translation + mean/std): **WRN-28-10 = 4.00%**; *[Table 4](http://arxiv.org/abs/1605.07146)* (width sweep on WRN-40-*k*, ZCA preprocessing in the paper): **WRN-40-1 / 40-2 / 40-4 = 6.85 / 5.33 / 4.97%**. Our trainer uses Table-5-*style* mean/std preprocessing, so comparisons to the WRN-40-*k* figures are directional (full apples-to-apples would replicate each table’s preprocessing).
 
 ## 3. GitHub Contents
 
@@ -48,7 +48,7 @@ Execute cells top to bottom: the notebook performs a short smoke run, then train
 
 ### Compute
 
-Training is intended for **NVIDIA GPUs** with sufficient memory (WRN-28-10 is the largest configuration). Expect on the order of **tens of minutes per model × 200 epochs on a datacenter-grade GPU** in our logged runs (~38–48 min/model on an **H100 80 GB** profile in `summary.csv`); commodity GPUs will scale roughly with throughput—plan for **many hours total** across all four widths if memory or clock speed is lower.
+Training is intended for **NVIDIA GPUs** with sufficient memory (WRN-28-10 is the largest configuration). Expect on the order of **tens of minutes per model × 200 epochs on a datacenter-grade GPU** in our logged runs (~38-48 min/model on an **H100 80 GB** profile in `summary.csv`); commodity GPUs will scale roughly with throughput; plan for **many hours total** across all four widths if memory or clock speed is lower.
 
 ## 6. Results / Insights
 
@@ -59,7 +59,7 @@ Training is intended for **NVIDIA GPUs** with sufficient memory (WRN-28-10 is th
 | WRN-40-2  | 2.24 | 5.12 | 5.33 | −0.21 |
 | WRN-40-4  | 8.95 | 4.32 | 4.97 | −0.65 |
 
-(Table from [`final_content/results/summary.csv`](final_content/results/summary.csv); “Paper baseline” follows `CONFIGS` targets in [`wrn_cifar10.ipynb`](final_content/code/wrn_cifar10.ipynb).) **Expectation:** you should land near the cited paper percentages for the **28-10 mean/std regime** (Table 5); widths 40-{1,2,4} are compared to Table 4’s published medians despite the preprocessing mismatch noted above—plus single-seed AMP noise vs median-of-five runs.
+(Table from [`final_content/results/summary.csv`](final_content/results/summary.csv); “Paper baseline” follows `CONFIGS` targets in [`wrn_cifar10.ipynb`](final_content/code/wrn_cifar10.ipynb).) **Expectation:** you should land near the cited paper percentages for the **28-10 mean/std regime** (Table 5); widths 40-{1,2,4} are compared to Table 4’s published medians despite the preprocessing mismatch noted above, plus single-seed AMP noise vs median-of-five runs.
 
 ## 7. Conclusion
 
